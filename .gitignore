@@ -1,0 +1,31 @@
+# Local interpreters, dependencies and generated Python files
+.venv/
+venv/
+.engine/
+__pycache__/
+*.py[cod]
+# Machine-specific configuration and editors
+config.json
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
+# OS metadata and build output
+.DS_Store
+Thumbs.db
+dist/
+*.log
+.pytest_cache/
+
+# Private models, diagnostics and derived client geometry
+*.step
+*.stp
+*.f3d
+*.f3z
+diagnostics/
+.diagnostics/
+results/
+
+# Prepared staging area for publication
+publication/

@@ -1,0 +1,115 @@
+<!doctype html><html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fusion Squish — instrukcja</title><style>
+body{font:17px/1.65 system-ui,sans-serif;color:#183044;background:#eef3f7;margin:0}main{max-width:960px;margin:35px auto;background:white;padding:45px;border-radius:18px}h1{font-size:34px;line-height:1.2}h2{margin-top:42px;border-top:1px solid #dbe5eb;padding-top:25px;color:#13628a}li{margin:12px 0}a{color:#13628a;overflow-wrap:anywhere}code{background:#eef3f7;padding:3px 5px;border-radius:4px}strong{color:#113c57}.icon{width:80px;float:right}@media(max-width:650px){main{margin:0;padding:22px}h1{font-size:27px}}@media print{body{background:white}main{margin:0;padding:0}h2{break-after:avoid}li{break-inside:avoid}a{color:inherit}}
+</style><main><img class="icon" src="FusionSquish/resources/flatten/icon.svg" alt="Ikona dodatku"><h1>Fusion Squish — wspólny płat → zewnętrzny kontur → DXF</h1>
+<p>Dodatek do Autodesk Fusion dla macOS i Windows. Wersja 1.2.3.</p>
+<h2>Co zmieniło się w wersji 1.2</h2>
+<p><strong>Wszystkie wybrane sąsiednie ściany jednej bryły są rozprostowywane razem. Wynik to jeden szkic i jeden DXF z zewnętrznym konturem.</strong> Wewnętrzne krawędzie pomiędzy ścianami i linie triangulacji nie są dodawane do szkicu. Nie ma już opcji triangulacji ani osobnych plików dla każdej ściany.</p>
+<p>Wybór nie ma limitu liczby ścian. Wspólny płat musi mieć maksymalnie 30 000 trójkątów oraz 3000 odcinków obwodu. Wybierz spójny obszar jednej bryły, połączony krawędziami, z jednym obwodem, bez otworów. Sąsiadowanie wyłącznie w punkcie nie wystarcza. Ściany z różnych brył lub wystąpień komponentów trzeba wcześniej połączyć/zszyć w Fusion.</p>
+<p>Można także wybrać jeden gotowy obiekt Mesh. Wybór pojedynczych trójkątów wewnątrz Mesh oraz łączenie kilku obiektów Mesh tym poleceniem nie są obsługiwane. Dla takiego wejścia przygotuj wcześniej jeden połączony płat siatki.</p>
+<h2>Poprawki w wersji 1.2.3</h2>
+<ul>
+<li>Trójkąty CAD o powtórzonych wierzchołkach są pomijane jako elementy o zerowej powierzchni. Inne degeneracje nadal powodują błąd; nie wypełniamy otworów.</li>
+<li>Dla wspólnego płata BRep przygotowywane są alternatywne triangulacje z tolerancją 0,5× i 2× ustawienia początkowego. Silnik sięga po nie dopiero po niepowodzeniu pierwszej siatki. Nadal obowiązuje limit 30 000 trójkątów na wariant.</li>
+<li>SLIM zatrzymuje się przed przecięciem obrysu i zwraca ostatni poprawny wynik. Raport zawiera liczbę zaakceptowanych iteracji oraz odkształcenia. Zatrzymanie nie oznacza, że odkształcenia są małe — oceń je przed cięciem.</li>
+<li>Jeśli wszystkie warianty zawiodą, dodatek zapisze lokalnie wejściową geometrię i komunikat do <code>FusionSquish/.diagnostics/last_failure.json</code>. Plik jest nadpisywany przy kolejnym błędzie. Nie jest wysyłany do internetu ani dołączany do paczek publikacyjnych.</li>
+</ul>
+<h2>Szybki start po aktualizacji</h2>
+<ol>
+<li>Zamknij całkowicie Fusion (na Macu <strong>⌘Q</strong>) i uruchom ponownie. Bibliotek nie trzeba ponownie instalować.</li>
+<li>Otwórz model w <strong>Design / Projektowanie</strong>.</li>
+<li>Kliknij <strong>Rozprostuj Mesh</strong>. Nazwa przycisku pozostała taka sama.</li>
+<li>W polu <strong>Powierzchnie lub Mesh</strong> zaznacz wszystkie sąsiednie ściany, które mają stanowić jeden wykrój. Muszą należeć do jednej bryły i tego samego wystąpienia komponentu.</li>
+<li>Zostaw <strong>Jakość siatki z powierzchni = Normalna</strong>, <strong>Iteracje SLIM = 100</strong>.</li>
+<li>Jeśli chcesz od razu zapisać plik, zaznacz <strong>Zapisz też DXF teraz (mm)</strong>.</li>
+<li>Kliknij <strong>OK</strong>. Dodatek skopiuje bryłę do pamięci, zachowa w kopii wyłącznie wybrane ściany, utworzy jedną siatkę i rozprostuje ją jako całość.</li>
+<li>Powstanie jeden szkic <strong>Squish — [nazwa bryły] — wspólny kontur</strong> na XY głównego komponentu. Oryginał pozostaje bez zmian; kopia robocza nie pojawia się w drzewie projektu.</li>
+<li>Zapisz DXF w jednym oknie zapisu. Anulowanie zapisu pozostawia szkic w projekcie.</li>
+<li>Ukryj model źródłowy i otwórz szkic. Powinien zawierać sam zamknięty obrys, bez podziałów pomiędzy wybranymi ścianami.</li>
+</ol>
+<p>Stare szkice i pliki DXF nie są automatycznie scalane ani usuwane. Uruchom polecenie ponownie na modelu źródłowym, aby utworzyć wspólne rozwinięcie. Jeśli nadal widzisz opcję triangulacji lub powstaje wiele szkiców, sprawdź w Scripts and Add-Ins ścieżkę dodatku i zrestartuj Fusion.</p>
+<h2>Instalacja na nowym komputerze</h2>
+<ol>
+<li>Rozpakuj <strong>FusionSquish-1.2.3.zip</strong> do stałego folderu. Nie uruchamiaj dodatku z wnętrza ZIP.</li>
+<li>Zainstaluj 64-bitowy <strong>Python 3.14</strong> z <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> (minimum 3.12, wymagane dostępne pakiety binarne dla systemu). Na Windows zaznacz dodanie Pythona do PATH.</li>
+<li>W folderze <strong>FusionSquish</strong>, obok manifestu, uruchom <strong>Install-mac.command</strong> na Macu lub <strong>Install-Windows.cmd</strong> na Windows.</li>
+<li>Jeśli Mac nie otwiera pliku command: otwórz Terminal, wpisz <code>cd </code>, przeciągnij folder FusionSquish do Terminala, naciśnij Enter, wpisz <code>python3 setup_engine.py</code> i Enter.</li>
+<li>Poczekaj na test silnika i komunikat <strong>GOTOWE</strong>. Internet jest potrzebny podczas instalacji bibliotek.</li>
+<li>W Fusion otwórz <strong>Utilities → Add-Ins → Scripts and Add-Ins</strong>, albo użyj <strong>Shift+S</strong>.</li>
+<li>W zakładce <strong>Add-Ins</strong> wybierz <strong>+</strong> / istniejący dodatek z urządzenia i wskaż folder <strong>FusionSquish</strong>, zawierający FusionSquish.py oraz FusionSquish.manifest.</li>
+<li>Zaznacz <strong>FusionSquish → Run</strong> i <strong>Run on Startup</strong>.</li>
+<li>Przycisk <strong>Rozprostuj Mesh</strong> jest w panelu dodatków w Design / Utilities. Możesz wyszukać go przez <strong>S</strong>.</li>
+</ol>
+<p>Po przeniesieniu folderu uruchom ponownie instalator silnika. Silnik jest automatycznie wykrywany w .engine; config.json zawiera ścieżkę względną. Biblioteki są w .engine, oddzielnie od interpretera Fusion. Każdy użytkownik przygotowuje własny silnik instalatorem.</p>
+<h2>Przygotowanie trudniejszego modelu</h2>
+<p>Dla sąsiednich ścian BRep nie musisz ręcznie wykonywać Separate, Keep Body ani Tessellate. Dodatek wydziela wybrany płat z kopii całej bryły i trianguluje go wspólnie, zachowując wspólne krawędzie.</p>
+<p>Jeśli wybierzesz całą zamkniętą skorupę, płat z otworami lub kilka rozłącznych obszarów, otrzymasz komunikat zamiast niepoprawnego konturu. Dodatek nie dobiera szwów i nie wypełnia otworów. Pełny bok walca wymaga przecięcia wzdłuż — samo usunięcie den nie wystarcza. Wybierz otwarty fragment lub wcześniej podziel powierzchnie w Fusion.</p>
+<p>Dla istniejących siatek:</p>
+<ol>
+<li>Importuj STL/OBJ/3MF przez <strong>Mesh → Create → Insert Mesh</strong>. Ustaw rzeczywiste jednostki; STL nie zapisuje ich w pliku.</li>
+<li>Jeśli potrzebujesz fragmentu, użyj <strong>Prepare → Generate Face Groups</strong>, następnie <strong>Modify → Separate → Select Face Groups</strong>. Własną grupę można utworzyć przez <strong>Create Face Group</strong> w Direct Edit.</li>
+<li>Wydziel jeden połączony obiekt Mesh. Zachowanie kopii oryginału jest opcjonalne; przed zmianami możesz zapisać kopię projektu.</li>
+<li>Przy <strong>Plane Cut</strong> wybierz <strong>No Fill</strong>, aby cięcie nie zostało zaślepione.</li>
+<li>Użyj <strong>Reduce</strong>, jeśli siatka przekracza limit, oraz <strong>Repair</strong>, jeśli ma błędy. Nie zamykaj otwartego brzegu wykroju.</li>
+<li>W dodatku wybierz jeden przygotowany Mesh.</li>
+</ol>
+<h2>Ustawienia i edycja szkicu</h2>
+<p><strong>Jakość siatki z powierzchni</strong> dotyczy wyłącznie BRep. Normalna jest ustawieniem początkowym; Niska zmniejsza liczbę trójkątów, Wysoka może lepiej odwzorować krzywiznę. Istniejąca siatka Mesh nie jest ponownie triangulowana. Limit 30 000 trójkątów dotyczy całego wspólnego płata.</p>
+<p><strong>Iteracje SLIM:</strong> zacznij od 100. Dla trudniejszych kształtów można spróbować 200–500. Więcej iteracji nie usuwa nieuniknionych odkształceń geometrycznych.</p>
+<p>Obliczenia można anulować w oknie postępu; limit oczekiwania wynosi 10 minut. Pasek oznacza czas oczekiwania, a nie rzeczywisty procent wykonanych iteracji.</p>
+<p>Szkic jest edytowalną polilinią ze wspólnymi końcami sąsiednich odcinków. Nie ma wewnętrznych krawędzi podziału ani konstrukcyjnej triangulacji. Obrys może zawierać współliniowe odcinki, ponieważ odzwierciedla triangulację. Możesz dodać wymiary, oznaczenia i naddatek przez <strong>Offset</strong>. Wynik jest migawką: zmiany modelu nie aktualizują go automatycznie.</p>
+<h2>Eksport DXF później</h2>
+<ol>
+<li>Zakończ edycję szkicu (<strong>Finish Sketch</strong>).</li>
+<li>W drzewie projektu rozwiń <strong>Sketches</strong>.</li>
+<li>Kliknij prawym przyciskiem szkic wspólnego konturu i wybierz <strong>Save As DXF</strong> / odpowiednią opcję eksportu szkicu.</li>
+<li>Wybierz mm, jeśli okno udostępnia jednostki, i zapisz.</li>
+<li>W programie docelowym otwórz DXF w mm i zmierz znany odcinek. Nie stosuj dopasowania do strony.</li>
+</ol>
+<p>Eksport z przycisku dodatku jawnie ustawia mm i pomija konstrukcję. Starsze Fusion bez nowego API eksportu zachowa szkic i poprosi o ręczny zapis. Wcześniej utworzone osobne DXF nie są modyfikowane.</p>
+<h2>Próba kontrolna</h2>
+<p>Importuj <strong>examples/prostokat_100x50_mm.stl</strong> w mm. Uruchom dodatek i wybierz ten jeden obiekt Mesh. Wynik powinien mieć boki około 100 i 50 mm. Kontur może być obrócony na XY. Sprawdź skalę również po otwarciu DXF w programie docelowym.</p>
+<p>Drugi przykład, <strong>walec_cwiartka_R100_H50_mm.stl</strong>, daje rozwinięcie o wysokości 50 mm i długości około 157 mm. Siatka opisuje łuk cięciwami, więc długość jest nieco mniejsza niż dokładne πR/2.</p>
+<p>Aby sprawdzić wspólne rozwinięcie ścian BRep, wybierz dwie sąsiednie ściany prostej bryły i uruchom dodatek. Oczekiwany wynik: jeden szkic, bez wspólnej krawędzi tych ścian wewnątrz konturu.</p>
+<h2>Jak to działa</h2>
+<p>Dla BRep dodatek kopiuje bryłę poza dokumentem przez BRepBody.convert z opcją ProceduralToNURBSConversion, która zachowuje mapowanie tempId. W kopii odnajduje zaznaczone ściany i usuwa pozostałe przez deleteFaces. Następnie TriangleMeshCalculator trianguluje cały zachowany płat. Wspólna triangulacja pozwala uniknąć niezależnego próbkowania krawędzi każdej ściany. Oryginalna bryła nie jest modyfikowana.</p>
+<p>Silnik scala identyczne wierzchołki oraz niemal identyczne punkty na brzegach (tolerancja 0,00001 mm), usuwa trójkąty o powtórzonych wierzchołkach, uzgadnia orientację trójkątów i kontroluje topologię. Parametryzacja harmoniczna daje początkowe odwzorowanie płata na płaszczyznę. SLIM z energią Symmetric Dirichlet optymalizuje je, ograniczając rozciąganie i ściskanie. Każda iteracja jest sprawdzana pod kątem odwróconych trójkątów oraz przecinającego się brzegu. Jeśli kolejna iteracja przecina obrys, zachowywany jest ostatni poprawny wynik i raportowana faktyczna liczba iteracji. Jeśli już pierwsza iteracja jest niepoprawna, operacja zgłasza błąd.</p>
+<p>Do szkicu trafiają tylko krawędzie brzegu — te, które należą do jednego trójkąta. Wewnętrzna krawędź między ścianami należy do dwóch trójkątów, dlatego nie jest częścią konturu. To wspólne rozprostowanie geometrii 3D, a nie sklejenie niezależnych rysunków 2D.</p>
+<p>Obliczenia odbywają się lokalnie w izolowanym procesie Python. Geometria nie jest wysyłana do internetu. Fusion używa wewnętrznie centymetrów; silnik zachowuje skalę, a eksport zapisuje mm.</p>
+<p>Płat sfery lub siodła na ogół wymaga rozciągania, ściskania albo cięć. Raport pokazuje maksymalną bezwzględną zmianę długości krawędzi, jej RMS i zmianę pola. To wskaźniki geometryczne, nie symulacja materiału ani rozwinięcie blachy z grubością i współczynnikiem K. Najpierw wykonaj próbny wykrój.</p>
+<h2>Rozwiązywanie problemów</h2>
+<ul>
+<li><strong>Obszar w kształcie L, mimo braku otworów zgłaszany błąd obwodów:</strong> wersja 1.2.3 scala numeryczne mikroszczeliny między brzegami triangulacji. Nie wypełnia rzeczywistych otworów. Komunikat podaje liczbę obwodów i uchwytów. Jeśli problem nadal występuje, potrzebny jest przykładowy model z zaznaczonym obszarem do sprawdzenia triangulacji.</li>
+</ul>
+<ul>
+<li><strong>3: invalid argument tempId:</strong> wersja 1.2.3 używa BRepBody.convert zamiast zwykłej kopii, aby zachować identyfikatory wybranych ścian. Zamknij całkowicie Fusion i uruchom ponownie. Biblioteki nie wymagają reinstalacji.</li>
+</ul>
+<ul>
+<li><strong>Kilka plików zamiast jednego:</strong> zrestartuj Fusion i sprawdź, czy uruchamiasz dodatek z aktualnego folderu. Wersja 1.2 tworzy jeden wynik.</li>
+<li><strong>Powierzchnie nie tworzą jednego płata:</strong> dodaj ściany łączące zaznaczone obszary. Kontakt wyłącznie w punkcie nie wystarcza.</li>
+<li><strong>Różne bryły lub wystąpienia:</strong> wcześniej zszyj/połącz geometrię w Fusion albo wybierz obszar jednej bryły.</li>
+<li><strong>Brak mapowania ściany w kopii:</strong> operacja zostaje przerwana, aby nie rozprostować błędnego fragmentu. Zapisz model, ponów zaznaczenie; jeśli problem wraca, przekaż treść komunikatu.</li>
+<li><strong>Zamknięta siatka / otwory:</strong> potrzebny otwarty płat bez otworów. Przygotuj podział lub szew.</li>
+<li><strong>Non-manifold / zdegenerowane trójkąty:</strong> napraw model lub siatkę.</li>
+<li><strong>Za dużo trójkątów:</strong> wybierz Niską jakość BRep lub Reduce dla Mesh. Limit dotyczy całego płata.</li>
+<li><strong>Kontur przecina sam siebie / duże odkształcenia:</strong> zmień podział powierzchni lub położenie szwów.</li>
+<li><strong>ImportError: std::bad_cast:</strong> aktualny dodatek uruchamia silnik w izolowanym Pythonie. Zamknij Fusion i uruchom ponownie, aby wczytać poprawkę.</li>
+<li><strong>Brak silnika / config.json:</strong> uruchom instalator w folderze dodatku. Po przeniesieniu folderu również uruchom go ponownie.</li>
+<li><strong>Błędny rozmiar:</strong> sprawdź jednostki importu STL i odczytu DXF.</li>
+<li><strong>Odinstalowanie:</strong> Scripts and Add-Ins → Stop, wyłącz Run on Startup, usuń rejestrację. Szkice pozostaną w zapisanych projektach.</li>
+</ul>
+<h2>Weryfikacja i źródła</h2>
+<p>35 testów automatyczne przeszły na macOS Apple Silicon / Python 3.14. Sprawdzają silnik, izolację uruchamiania, wybór geometrii i nowy wspólny wynik. Test dwóch kwadratów zagiętych o 90° potwierdza jedno rozwinięcie, brak wspólnej krawędzi w obrysie oraz błąd długości poniżej 0,1%. Test adaptera potwierdza utworzenie tylko sześciu odcinków zewnętrznego konturu tego przykładu.</p>
+<p>Testy API wykorzystują atrapy interfejsu Fusion. <strong>Kopiowanie bryły, mapowanie ścian i triangulacja przez rzeczywiste jądro Fusion oraz zapis DXF wymagają próby w aplikacji.</strong> Windows nie był testowany. Wyniki geometryczne przykładów nie gwarantują takiej samej dokładności dla dowolnego modelu.</p>
+<p>Inspiracja: HermanFjell/Flatten-Surface. Integracja jest niezależną implementacją opartą na publicznym API libigl; kod pierwotnego repozytorium nie jest dołączony. Zobacz THIRD_PARTY.md.</p>
+<ul>
+<li>Repozytorium odniesienia: <a href="https://github.com/HermanFjell/Flatten-Surface">https://github.com/HermanFjell/Flatten-Surface</a></li>
+<li>SLIM / libigl: <a href="https://libigl.github.io/libigl-python-bindings/api/igl/">https://libigl.github.io/libigl-python-bindings/api/igl/</a></li>
+<li>Tymczasowe BRep: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm</a></li>
+<li>Wydzielenie ścian: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager_deleteFaces.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager_deleteFaces.htm</a></li>
+<li>Instalacja dodatków: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/WritingDebugging_UM.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/WritingDebugging_UM.htm</a></li>
+</ul>
+<ul>
+<li>Mapowanie ścian przy konwersji: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_BRepBody.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_BRepBody.htm</a></li>
+</ul>
+<h2>Publikacja</h2>
+<p>Instrukcja przygotowania GitHuba: GITHUB_PL.md. Paczki publikacyjne nie zawierają lokalnych środowisk, konfiguracji ani ścieżek konta użytkownika.</p></main></html>

@@ -1,0 +1,16 @@
+solid prostokat_100x50_mm
+facet normal 0 0 0
+outer loop
+vertex 0 0 0
+vertex 100 0 0
+vertex 100 50 0
+endloop
+endfacet
+facet normal 0 0 0
+outer loop
+vertex 0 0 0
+vertex 100 50 0
+vertex 0 50 0
+endloop
+endfacet
+endsolid prostokat_100x50_mm

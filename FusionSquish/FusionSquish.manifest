@@ -1,0 +1,12 @@
+{
+  "autodeskProduct": "Fusion360",
+  "type": "addin",
+  "id": "0bd758f8-23d0-4a92-ae30-cf2467a84081",
+  "author": "Fusion Squish",
+  "description": {
+    "": "Sąsiednie powierzchnie jednej bryły do wspólnego rozwinięcia i zewnętrznego konturu DXF."
+  },
+  "version": "1.2.3",
+  "runOnStartup": true,
+  "supportedOS": "windows|mac"
+}
