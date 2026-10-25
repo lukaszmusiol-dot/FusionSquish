@@ -1,8 +1,4 @@
-# Źródła i zależności
-
-Projekt odniesienia: https://github.com/HermanFjell/Flatten-Surface (HermanFjell).
-Opisuje workflow harmonic parameterization + SLIM / Symmetric Dirichlet dla wykrojów.
-Nie skopiowano ani nie dołączono kodu tego repozytorium; podczas przeglądu nie znaleziono jawnej licencji repozytorium.
+# Zależności zewnętrzne
 
 Fusion Squish to nowa integracja publicznego API libigl z Autodesk Fusion. Nie jest oficjalnym dodatkiem Autodesk.
 

@@ -24,4 +24,6 @@ Przy aktualizacji kodu zamknij całkowicie Fusion i uruchom ponownie. Ponowna in
 
 Wymagany spójny, otwarty płat bez otworów. Brak automatycznych szwów. Krzywizny mogą powodować duże odkształcenia — skontroluj wynik przed cięciem. To wydanie eksperymentalne.
 
-Załączniki nie zawierają lokalnych środowisk Python ani prywatnych modeli i wyników. Projekt nie ma jeszcze określonej licencji własnego kodu; informacje o bibliotekach zawiera `THIRD_PARTY.md`.
+Załączniki nie zawierają lokalnych środowisk Python ani prywatnych modeli i wyników. Informacje o bibliotekach zawiera `THIRD_PARTY.md`.
+
+Kod projektu jest udostępniany na licencji MIT.

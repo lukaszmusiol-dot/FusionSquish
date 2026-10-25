@@ -29,6 +29,6 @@ Testy silnika i adaptera: `python -m unittest discover -s tests -v` w środowisk
 
 ## Licencja
 
-W tym przygotowaniu nie narzucono licencji na kod projektu. Przed udostępnieniem go jako projektu open source wybierz licencję i dodaj plik `LICENSE`. Informacje o zewnętrznych bibliotekach i źródłach są w `THIRD_PARTY.md`.
+Warunki udostępniania kodu określa plik `LICENSE`. Informacje o zewnętrznych bibliotekach znajdują się w `THIRD_PARTY.md`.
 
 Prywatne modele STEP/F3D, foldery `diagnostics/`, `results/` i `.diagnostics/` również są wykluczone. Dane rzeczywistego modelu i wygenerowane dla niego wykroje nie trafiają do GitHuba ani paczek. Biblioteka OpenCascade użyta do lokalnej analizy nie jest zależnością dodatku.

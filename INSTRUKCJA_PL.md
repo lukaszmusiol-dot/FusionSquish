@@ -120,15 +120,12 @@ Płat sfery lub siodła na ogół wymaga rozciągania, ściskania albo cięć. R
 - **Błędny rozmiar:** sprawdź jednostki importu STL i odczytu DXF.
 - **Odinstalowanie:** Scripts and Add-Ins → Stop, wyłącz Run on Startup, usuń rejestrację. Szkice pozostaną w zapisanych projektach.
 
-## Weryfikacja i źródła
+## Weryfikacja i dokumentacja
 
 35 testów automatyczne przeszły na macOS Apple Silicon / Python 3.14. Sprawdzają silnik, izolację uruchamiania, wybór geometrii i nowy wspólny wynik. Test dwóch kwadratów zagiętych o 90° potwierdza jedno rozwinięcie, brak wspólnej krawędzi w obrysie oraz błąd długości poniżej 0,1%. Test adaptera potwierdza utworzenie tylko sześciu odcinków zewnętrznego konturu tego przykładu.
 
 Testy API wykorzystują atrapy interfejsu Fusion. **Kopiowanie bryły, mapowanie ścian i triangulacja przez rzeczywiste jądro Fusion oraz zapis DXF wymagają próby w aplikacji.** Windows nie był testowany. Wyniki geometryczne przykładów nie gwarantują takiej samej dokładności dla dowolnego modelu.
 
-Inspiracja: HermanFjell/Flatten-Surface. Integracja jest niezależną implementacją opartą na publicznym API libigl; kod pierwotnego repozytorium nie jest dołączony. Zobacz THIRD_PARTY.md.
-
-- Repozytorium odniesienia: https://github.com/HermanFjell/Flatten-Surface
 - SLIM / libigl: https://libigl.github.io/libigl-python-bindings/api/igl/
 - Tymczasowe BRep: https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm
 - Wydzielenie ścian: https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager_deleteFaces.htm

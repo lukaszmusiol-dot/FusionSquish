@@ -60,10 +60,12 @@ python tools/build_package.py
 
 Generator zapisuje ZIP instalacyjny i oczyszczoną paczkę źródłową w `dist/`. Więcej informacji: [przygotowanie publikacji](GITHUB_PL.md) oraz [opis wydania](RELEASE_NOTES.md).
 
-## Prywatność i źródła
+## Prywatność i zależności
 
 Lokalne środowiska, konfiguracja, logi, modele użytkownika i wyniki nie są publikowane. Jeśli obliczenia zawiodą, lokalny plik `FusionSquish/.diagnostics/last_failure.json` może zawierać geometrię modelu; nie jest wysyłany ani dołączany do paczek.
 
-Inspiracja: [HermanFjell/Flatten-Surface](https://github.com/HermanFjell/Flatten-Surface). Integracja jest niezależną implementacją korzystającą z libigl; kod repozytorium odniesienia nie jest dołączony. Szczegóły zależności: [THIRD_PARTY.md](THIRD_PARTY.md).
+Szczegóły zależności znajdują się w [THIRD_PARTY.md](THIRD_PARTY.md).
 
-Projekt nie ma jeszcze określonej licencji własnego kodu. Nie należy zakładać, że samo publiczne udostępnienie oznacza licencję open source.
+## Licencja
+
+Kod projektu jest udostępniany na licencji [MIT](LICENSE).

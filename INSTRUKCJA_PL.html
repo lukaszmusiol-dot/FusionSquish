@@ -97,12 +97,10 @@ body{font:17px/1.65 system-ui,sans-serif;color:#183044;background:#eef3f7;margin
 <li><strong>Błędny rozmiar:</strong> sprawdź jednostki importu STL i odczytu DXF.</li>
 <li><strong>Odinstalowanie:</strong> Scripts and Add-Ins → Stop, wyłącz Run on Startup, usuń rejestrację. Szkice pozostaną w zapisanych projektach.</li>
 </ul>
-<h2>Weryfikacja i źródła</h2>
+<h2>Weryfikacja i dokumentacja</h2>
 <p>35 testów automatyczne przeszły na macOS Apple Silicon / Python 3.14. Sprawdzają silnik, izolację uruchamiania, wybór geometrii i nowy wspólny wynik. Test dwóch kwadratów zagiętych o 90° potwierdza jedno rozwinięcie, brak wspólnej krawędzi w obrysie oraz błąd długości poniżej 0,1%. Test adaptera potwierdza utworzenie tylko sześciu odcinków zewnętrznego konturu tego przykładu.</p>
 <p>Testy API wykorzystują atrapy interfejsu Fusion. <strong>Kopiowanie bryły, mapowanie ścian i triangulacja przez rzeczywiste jądro Fusion oraz zapis DXF wymagają próby w aplikacji.</strong> Windows nie był testowany. Wyniki geometryczne przykładów nie gwarantują takiej samej dokładności dla dowolnego modelu.</p>
-<p>Inspiracja: HermanFjell/Flatten-Surface. Integracja jest niezależną implementacją opartą na publicznym API libigl; kod pierwotnego repozytorium nie jest dołączony. Zobacz THIRD_PARTY.md.</p>
 <ul>
-<li>Repozytorium odniesienia: <a href="https://github.com/HermanFjell/Flatten-Surface">https://github.com/HermanFjell/Flatten-Surface</a></li>
 <li>SLIM / libigl: <a href="https://libigl.github.io/libigl-python-bindings/api/igl/">https://libigl.github.io/libigl-python-bindings/api/igl/</a></li>
 <li>Tymczasowe BRep: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager.htm</a></li>
 <li>Wydzielenie ścian: <a href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager_deleteFaces.htm">https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_TemporaryBRepManager_deleteFaces.htm</a></li>

@@ -66,7 +66,7 @@ for folder in ('FusionSquish','examples','tests','tools'):
         if (path.is_file() and not any(part in excluded for part in path.relative_to(ROOT).parts)
                 and path.suffix in allowed and path.name!='config.json'):
             paths.append(path)
-for name in ('INSTRUKCJA_PL.html','INSTRUKCJA_PL.md','README.md','THIRD_PARTY.md','START_TUTAJ.md','GITHUB_PL.md','RELEASE_NOTES.md','.gitignore'):
+for name in ('INSTRUKCJA_PL.html','INSTRUKCJA_PL.md','README.md','LICENSE','THIRD_PARTY.md','START_TUTAJ.md','GITHUB_PL.md','RELEASE_NOTES.md','.gitignore'):
     paths.append(ROOT/name)
 # Fail before producing a new release if personal paths leak into text sources.
 account=getpass.getuser()
